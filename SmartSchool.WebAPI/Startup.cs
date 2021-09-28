@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,16 +31,15 @@ namespace SmartSchool.WebAPI
             services.AddDbContext<SmartContext>(
                 context => context.UseSqlite(Configuration.GetConnectionString("Default"))
             );
-            //Cria uma instancia na primeira vez e sempre reutiliza a mesma em todos locais necessarios
-            //services.AddSingleton<IRepository, Repository>();
-            // Sempre gera uma instancia para cada item encontrado, se existirem 5 dependênciaa, serão 5 instancias criadas
-            //services.AddTransient<IRepository, Repository>();
 
             services.AddScoped<IRepository, Repository>();
 
             services.AddControllers().AddNewtonsoftJson(
-                opt => opt.SerializerSettings.ReferenceLoopHandling = 
+                opt => opt.SerializerSettings.ReferenceLoopHandling =
                     Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SmartSchool.WebAPI", Version = "v1" });

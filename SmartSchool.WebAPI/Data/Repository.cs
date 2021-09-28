@@ -93,7 +93,7 @@ namespace SmartSchool.WebAPI.Data
 
         public Professor[] GetAllProfessores(bool includeProfessor = false)
         {
-            IQueryable<Professor> query = _context.Professors;
+            IQueryable<Professor> query = _context.Professores;
 
             if (includeProfessor)
             {
@@ -107,7 +107,7 @@ namespace SmartSchool.WebAPI.Data
 
         public Professor[] GetAllProfessoresByDisciplinaId(int disciplinaId, bool includeProfessor = false)
         {
-            IQueryable<Professor> query = _context.Professors;
+            IQueryable<Professor> query = _context.Professores;
 
             if (includeProfessor)
             {
@@ -126,7 +126,7 @@ namespace SmartSchool.WebAPI.Data
 
         public Professor GetProfessorById(int professorId, bool includeProfessor = false)
         {
-           IQueryable<Professor> query = _context.Professors;
+           IQueryable<Professor> query = _context.Professores;
 
             if (includeProfessor)
             {
@@ -139,6 +139,11 @@ namespace SmartSchool.WebAPI.Data
             .Where(professor => professor.Id == professorId);
 
             return query.FirstOrDefault();
+        }
+
+        public Professor GetProfessoresByAlunoId(int alunoId, bool includeAlunos)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
