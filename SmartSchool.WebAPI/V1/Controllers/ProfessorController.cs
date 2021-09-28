@@ -6,15 +6,16 @@ using Microsoft.EntityFrameworkCore;
 using SmartSchool.WebAPI.Data;
 using SmartSchool.WebAPI.V1.Dtos;
 using SmartSchool.WebAPI.Models;
-using SmartSchool.WebAPI.Dtos;
 
 namespace SmartSchool.WebAPI.V1.Controllers
+
 {
     /// <summary>
-    /// Versão 1 do meu controlador de Professores
+    /// Versão 1 do controlador de Professores
     /// </summary>
     [ApiController]
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class ProfessorController : ControllerBase
     {
         private readonly IRepository _repo;
