@@ -1,0 +1,67 @@
+<div class="row">
+  <div *ngIf="profSelecionado" class="col-sm-6">
+    <div class="row">
+      <div class="mr-auto">
+        <app-titulo [titulo]="'Professor: ' + profSelecionado.id"></app-titulo>
+      </div>
+      <div class="mt-1">
+        <button class="btn btn-warning" (click)="voltar()">Lista de professores</button>
+      </div>
+    </div>
+
+    <form>
+      <div class="form-group">
+        <label for="formGroupExampleInput">Nome</label>
+        <input type="text" class="form-control" value="{{profSelecionado.nome}}">
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">Disciplina</label>
+        <input type="text" class="form-control" value="{{profSelecionado.disciplina}}">
+      </div>
+
+    </form>
+  </div>
+
+  <div *ngIf="!profSelecionado">
+    <app-titulo [titulo]="'Professores'"></app-titulo>
+
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Visualizar</th>
+          <th scope="col">#</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Disciplina</th>
+          <th scope="col">Opções</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let professor of professores">
+          <td><button  (click)="profSelect(professor)"class=" text-dark btn btn-outline-warning">Detalhes</button></td>
+          <th scope="row">{{professor.id}}</th>
+          <td>{{professor.nome}}</td>
+          <td>{{professor.disciplina}}</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-outline-primary" (click)="openModal(template)">
+                Alunos
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <ng-template #template>
+
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Alunos</h4>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class=" btn close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+          Fechar
+        </button>
+      </div>
+  </ng-template>
