@@ -1,61 +1,151 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Aluno } from 'src/app/models/Aluno';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+// import { PaginatedResult, Pagination } from 'src/app/models/Pagination';
 
+import { Aluno } from '../../models/Aluno';
+import { Professor } from '../../models/Professor';
+
+import { AlunoService } from '../../services/aluno.service';
+import { ProfessorService } from '../../services/professor.service';
 @Component({
   selector: 'app-alunos',
   templateUrl: './alunos.component.html',
   styleUrls: ['./alunos.component.css']
 })
-export class AlunosComponent implements OnInit {
+export class AlunosComponent implements OnInit, OnDestroy {
 
+  public titulo = 'Aluno'
   public modalRef: BsModalRef;
   public alunoForm: FormGroup;
   public alunoSelecionado: Aluno;
   public textSimple: string;
+  public profsAlunos: Professor[];
 
-  public alunos = [
-    { id: 1,nome: 'Marta', sobrenome: 'Kent', telefone: 332255 },
-    { id: 2,nome: 'Paula', sobrenome: 'Isabela', telefone: 1234324 },
-    { id: 3,nome: 'Laura', sobrenome: 'Antonia', telefone: 78978675 },
-    { id: 4,nome: 'Luiza', sobrenome: 'Maria', telefone: 2301784213 },
-    { id: 5,nome: 'Lucas', sobrenome: 'Machado', telefone: 234523465 },
-    { id: 6,nome: 'Pedro', sobrenome: 'Alvares', telefone: 54616465411 },
-    { id: 7,nome: 'Paulo', sobrenome: 'José', telefone: 15645613 },
-  ];
-  
-  constructor(private modalService: BsModalService,
-              private fb: FormBuilder) {
+  private unsubscriber = new Subject();
+
+
+  public alunos = [];
+  // public alunos = Aluno[];
+  public aluno: Aluno;
+  public msnDelteAluno: string;
+  public modeSave = 'post'
+
+  constructor(
+    private alunoService: AlunoService,
+    private route: ActivatedRoute,
+    private professorService: ProfessorService,
+    private fb: FormBuilder,
+    private modalService: BsModalService,
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService,
+  ) {
     this.criarForm();
-  }
- 
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
+
   }
 
+  openModal(template: TemplateRef<any>, alunoId: number) {
+    this.professoresAlunos(template, alunoId);
+  }
+
+  closeModal() {
+    this.modalRef.hide();
+  }
 
   ngOnInit(): void {
-
+    this.carregarAlunos();
   }
 
-  alunoSelect(aluno: Aluno){
+  ngOnDestroy(){
+    this.unsubscriber.next();
+    this.unsubscriber.complete();
+  }
+  professoresAlunos(template: TemplateRef<any>, id: number){
+    this.spinner.show();
+    this.professorService.getByAlunoId(id)
+    .pipe(takeUntil(this.unsubscriber))
+    .subscribe((professores: Professor[]) => {
+      this.profsAlunos = professores;
+      this.modalRef = this.modalService.show(template);
+    }, (error: any) => {
+      this.toastr.error(`erro: ${error.message}`);
+      console.error(error);
+      this.spinner.hide();
+     }, () => this.spinner.hide )
+  }
+
+  alunoSelect(aluno: Aluno) {
+    this.modeSave = 'put';
     this.alunoSelecionado = aluno;
     this.alunoForm.patchValue(aluno);
   }
 
-  voltar(){
+  voltar() {
     this.alunoSelecionado = null;
   }
 
-  alunoSubmit(){
+  alunoSubmit() {
     console.log(this.alunoForm.value);
   }
-  criarForm(){
+  criarForm() {
     this.alunoForm = this.fb.group({
+      id:[0],
       nome: ['', Validators.required],
-      sobrenome: ['',  Validators.required],
-      telefone: ['',  Validators.required],
+      sobrenome: ['', Validators.required],
+      telefone: ['', Validators.required],
     });
   }
+
+  carregarAlunos() {
+    const id = +this.route.snapshot.paramMap.get('id');
+
+    this.spinner.show();
+    this.alunoService.getAll()
+      .pipe(takeUntil(this.unsubscriber))
+      .subscribe((alunos: Aluno[]) => {
+        this.alunos = alunos;
+
+        if (id > 0) {
+          this.alunoSelect(this.alunos.find(aluno => aluno.id === id));
+        }
+
+        this.toastr.success('Alunos foram carregado com Sucesso!');
+      }, (error: any) => {
+        this.toastr.error('Alunos não carregados!');
+        console.error(error);
+        this.spinner.hide();
+      }, () => this.spinner.hide()
+    );
+  }
+  saveAluno() {
+    if (this.alunoForm.valid) {
+      this.spinner.show();
+
+      if (this.modeSave === 'post') {
+        this.aluno = {...this.alunoForm.value};
+      } else {
+        this.aluno = {id: this.alunoSelecionado.id, ...this.alunoForm.value};
+      }
+
+      this.alunoService[this.modeSave](this.aluno)
+        .pipe(takeUntil(this.unsubscriber))
+        .subscribe(
+          () => {
+            this.carregarAlunos();
+            this.toastr.success('Aluno salvo com sucesso!');
+          }, (error: any) => {
+            this.toastr.error(`Erro: Aluno não pode ser salvo!`);
+            console.error(error);
+            this.spinner.hide();
+          }, () => this.spinner.hide()
+        );
+
+    }
+  }
+  
 }

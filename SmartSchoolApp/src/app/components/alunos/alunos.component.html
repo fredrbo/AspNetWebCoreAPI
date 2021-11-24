@@ -1,66 +1,60 @@
 <div class="row">
 
-  <div>
-    <input type="text" [(ngModel)]="textSimple">
-    <p>{{textSimple}}</p>
-  </div>
-
   <div class="col-sm-6" *ngIf="alunoSelecionado">
     <div class="row">
       <div class="mr-auto">
-        <app-titulo [titulo]="'Código: ' + alunoSelecionado.id"></app-titulo>
+        <app-titulo [titulo]="'Cód. Aluno: ' + alunoSelecionado.id"></app-titulo>
       </div>
       <div class="mt-1">
-        <button class="btn btn-outline-danger btn-sm" (click)="voltar()">Fechar</button>
+        <button class="btn btn-sm btn-outline-danger" (click)="voltar()">
+          Fechar
+        </button>
       </div>
     </div>
 
-    <form [formGroup]="alunoForm" (submit)="alunoSubmit()">
+    <form [formGroup]="alunoForm">
       <div class="form-group">
         <label for="formGroupExampleInput">Nome</label>
         <input type="text" formControlName="nome" class="form-control">
       </div>
       <div class="form-group">
         <label for="formGroupExampleInput2">Sobrenome</label>
-        <input type="text" formControlName="sobrenome" class="form-control">
+        <input type="text" formControlName="sobrenome"  class="form-control">
       </div>
       <div class="form-group">
         <label for="formGroupExampleInput2">Telefone</label>
         <input type="text" formControlName="telefone" class="form-control">
       </div>
+      <div class="form-group">
+        <hr>
+        <button class="btn btn-success" (click)="saveAluno()" [disabled]="!alunoForm.valid">Enviar</button>
+      </div>
     </form>
-    <div class="for-group">
-      <button class="btn btn-success mt-2" (click)="alunoSubmit()" [disabled]="!alunoForm.valid">Enviar
-      </button>
-    </div>
   </div>
 
   <div [ngClass]="{'col-sm-6': alunoSelecionado, 'col-sm-12': !alunoSelecionado}">
-    <app-titulo [titulo]="'Alunos'"></app-titulo>
+    <app-titulo [titulo]="titulo"></app-titulo>
 
     <table class="table table-hover">
       <thead class="thead-light">
         <tr>
-
-          <td scope="col">Visualizar</td>
-          <td scope="col">#</td>
-          <td scope="col">Nome</td>
-          <td scope="col">Disciplina</td>
-          <td scope="col">Telefone</td>
-          <td scope="col">Opções</td>
+          <th scope="col">Visualizar</th>
+          <th scope="col">#</th>
+          <th scope="col">Nome Completo</th>
+          <th scope="col">Telefone</th>
+          <th scope="col">Opções</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let aluno of alunos" >
-          <td><button class="btn btn-sm btn-outline-warning text-dark"
-             (click)="alunoSelect(aluno)">Detalhe</button></td>
+        <tr *ngFor="let aluno of alunos">
+          <td><button (click)="alunoSelect(aluno)"
+            class="text-dark btn btn-sm btn-outline-warning">Detalhe</button></td>
           <td scope="row">{{aluno.id}}</td>
           <td>{{aluno.nome}}</td>
-          <td>{{aluno.sobrenome}}</td>
           <td>{{aluno.telefone}}</td>
           <td>
-            <div class="btn=group">
-              <button class="btn btn-sm btn-outline-primary" (click)="openModal(template)" >Professores</button>
+            <div class="btn-group">
+              <button (click)="openModal(template, aluno.id)" class="btn btn-sm btn-outline-primary">Professores</button>
               <button class="btn btn-sm btn-outline-danger">Desativar</button>
             </div>
           </td>
@@ -68,15 +62,17 @@
       </tbody>
     </table>
   </div>
-</div> 
-<ng-template #template>
 
+</div>
+
+<ng-template #template>
   <div class="modal-body">
-    <app-professor></app-professor>
+    <app-professores-alunos (closeModal)="closeModal()" [professores]="profsAlunos"></app-professores-alunos>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      Fechar
+    <button type="button" class="btn pull-right" aria-label="Close"
+      (click)="modalRef.hide()">
+      FECHAR
     </button>
   </div>
 </ng-template>

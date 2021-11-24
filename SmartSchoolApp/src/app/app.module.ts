@@ -1,20 +1,27 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AlunosComponent } from './components/alunos/alunos.component';
+import { ProfessorComponent } from './components/professor/professor.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { TituloComponent } from './components/shared/titulo/titulo.component';
+import { NavComponent } from './components/shared/nav/nav.component';
+
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
+
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { AlunosComponent } from './components/alunos/alunos.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
-import { ProfessorComponent } from './components/professor/professor.component';
-import { NavComponent } from './components/shared/nav/nav.component';
-import { TituloComponent } from './components/shared/titulo/titulo.component';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { ProfessoresAlunosComponent } from './components/alunos/professores-alunos/professores-alunos.component';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +31,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     PerfilComponent,
     ProfessorComponent,
     TituloComponent,
-    NavComponent
+    NavComponent,
+    ProfessoresAlunosComponent
     
   ],
   imports: [
@@ -34,6 +42,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    ModalModule.forRoot(),
+    HttpClientModule,
     NgxSpinnerModule,
     ToastrModule.forRoot({
       timeOut: 3500,

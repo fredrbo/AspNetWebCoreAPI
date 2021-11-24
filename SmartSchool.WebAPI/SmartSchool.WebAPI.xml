@@ -30,7 +30,7 @@
         </member>
         <member name="T:SmartSchool.WebAPI.V1.Controllers.ProfessorController">
             <summary>
-            Versão 1 do controlador de Professores
+            Versão 1 do meu controlador de Professores
             </summary>
         </member>
         <member name="T:SmartSchool.WebAPI.V1.Dtos.AlunoRegistrarDto">
