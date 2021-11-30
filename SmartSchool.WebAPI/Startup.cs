@@ -31,28 +31,26 @@ namespace SmartSchool.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-         string connectionString = Configuration.GetConnectionString("MySqlConnection");
-
-             services.AddDbContext<SmartContext>(
-             context => context.UseMySql(connectionString,
-                        ServerVersion.AutoDetect(connectionString)));
-
-
+            string connectionString = Configuration.GetConnectionString("MySqlConnection");
+            services.AddDbContext<SmartContext>(
+                context => context.UseMySql(
+                    connectionString, ServerVersion.AutoDetect(connectionString)));
+                    
             services.AddControllers()
                     .AddNewtonsoftJson(
-                        opt => opt.SerializerSettings.ReferenceLoopHandling = 
+                        opt => opt.SerializerSettings.ReferenceLoopHandling =
                             Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<IRepository, Repository>();
 
-            services.AddVersionedApiExplorer(options => 
+            services.AddVersionedApiExplorer(options =>
             {
                 options.GroupNameFormat = "'v'VVV";
                 options.SubstituteApiVersionInUrl = true;
             })
-            .AddApiVersioning(options => 
+            .AddApiVersioning(options =>
             {
                 options.DefaultApiVersion = new ApiVersion(1, 0);
                 options.AssumeDefaultVersionWhenUnspecified = true;
@@ -62,7 +60,8 @@ namespace SmartSchool.WebAPI
             var apiProviderDescription = services.BuildServiceProvider()
                                                  .GetService<IApiVersionDescriptionProvider>();
 
-            services.AddSwaggerGen(options => {
+            services.AddSwaggerGen(options =>
+            {
                 foreach (var description in apiProviderDescription.ApiVersionDescriptions)
                 {
                     options.SwaggerDoc(
@@ -84,7 +83,7 @@ namespace SmartSchool.WebAPI
                                 Email = "",
                                 Url = new Uri("http://programadamente.com")
                             }
-                        }    
+                        }
                     );
                 }
 
@@ -97,7 +96,7 @@ namespace SmartSchool.WebAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, 
+        public void Configure(IApplicationBuilder app,
                               IWebHostEnvironment env,
                               IApiVersionDescriptionProvider apiProviderDescription)
         {
@@ -115,10 +114,10 @@ namespace SmartSchool.WebAPI
                .UseSwaggerUI(options =>
                {
                    foreach (var description in apiProviderDescription.ApiVersionDescriptions)
-                   {                       
-                        options.SwaggerEndpoint(
-                            $"/swagger/{description.GroupName}/swagger.json", 
-                            description.GroupName.ToUpperInvariant());
+                   {
+                       options.SwaggerEndpoint(
+                           $"/swagger/{description.GroupName}/swagger.json",
+                           description.GroupName.ToUpperInvariant());
                    }
                    options.RoutePrefix = "";
                });

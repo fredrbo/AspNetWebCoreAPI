@@ -1,6 +1,7 @@
-import { Disciplina } from './Disciplina';
+import { Disciplinas } from './Disciplinas';
 export class Professor{
     id: Number;
     nome: string;
-    disciplina: Disciplina[];
+    disciplinas: Disciplinas[];
+    allProfDisciplinas: string;
 }

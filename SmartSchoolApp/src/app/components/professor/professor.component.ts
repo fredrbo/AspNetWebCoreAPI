@@ -1,40 +1,62 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Professor } from 'src/app/models/Professor';
+import { Disciplinas } from 'src/app/models/Disciplinas';
+import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
+import { Professor } from '../../models/Professor';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { Subject } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { ProfessorService } from '../../services/professor.service';
+import { takeUntil } from 'rxjs/operators';
+import { Util } from '../../util/util';
+import { Router } from '@angular/router';
+import { Aluno } from '../../models/Aluno';
+import { AlunoService } from '../../services/aluno.service';
+
 
 @Component({
   selector: 'app-professor',
   templateUrl: './professor.component.html',
   styleUrls: ['./professor.component.css']
 })
-export class ProfessorComponent implements OnInit {
+export class ProfessorComponent implements  OnInit, OnDestroy {
 
-  public profSelecionado: Professor;
-  public  modalRef: BsModalRef;
+  public titulo = 'Professores';
+  public professorSelecionado: Professor;
+  private unsubscriber = new Subject();
 
-  public professores = [
-    // { id: 1, nome: 'Lauro', disciplina: 'Matemática' },
-    // { id: 2, nome: 'Roberto', disciplina: 'Física' },
-    // { id: 3, nome: "Ronaldo", disciplina: 'Português' },
-    // { id: 4, nome: "Rodrigo", disciplina: 'Inglês' },
-    // { id: 5, nome: "Alexandre", disciplina: 'Programação' },
-  ]
-  constructor(private modalService: BsModalService) { }
+  public professores: Professor[];
 
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
+  constructor(
+    private router: Router,
+    private professorService: ProfessorService,
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService) {}
+
+  carregarProfessores() {
+    this.spinner.show();
+    this.professorService.getAll()
+      .pipe(takeUntil(this.unsubscriber))
+      .subscribe((professores: Professor[]) => {
+        this.professores = professores;
+        this.toastr.success('Professores foram carregado com Sucesso!');
+      }, (error: any) => {
+        this.toastr.error('Professores não carregados!');
+        console.log(error);
+      }, () => this.spinner.hide()
+    );
   }
 
-  profSelect(professor: Professor) {
-    this.profSelecionado = professor;
-
+  ngOnInit() {
+    this.carregarProfessores();
   }
 
-  voltar() {
-    this.profSelecionado = null;
+  ngOnDestroy(): void {
+    this.unsubscriber.next();
+    this.unsubscriber.complete();
   }
 
-  ngOnInit(): void {
+  disciplinaConcat(disciplinas: Disciplinas[]) {
+    return Util.nomeConcat(disciplinas);
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Professor } from 'src/app/models/Professor';
 import { Util } from '../../../util/util';
-import { Disciplina } from 'src/app/models/Disciplina';
+import { Disciplinas } from 'src/app/models/Disciplinas';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,14 +16,14 @@ export class ProfessoresAlunosComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  disciplinaConcat(disciplinas: Disciplina[]) {
+  disciplinaConcat(disciplinas: Disciplinas[]): string {
     return Util.nomeConcat(disciplinas);
   }
 
-  professorSelect(prof: Professor) {
+  professorSelect(prof: Professor): void {
     this.closeModal.emit(null);
     this.router.navigate(['/professor', prof.id]);
   }

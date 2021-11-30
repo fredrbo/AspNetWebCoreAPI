@@ -1,3 +1,4 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,12 +16,14 @@ import { NavComponent } from './components/shared/nav/nav.component';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
-
+import { PaginationModule } from 'ngx-bootstrap/Pagination';
 
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfessoresAlunosComponent } from './components/alunos/professores-alunos/professores-alunos.component';
+import { ProfessorDetalheComponent } from './components/professor/professor-detalhe/professor-detalhe.component';
+import { AlunosProfessoresComponent } from './components/professor/alunos-professores/alunos-professores.component';
 
 
 @NgModule({
@@ -32,12 +35,16 @@ import { ProfessoresAlunosComponent } from './components/alunos/professores-alun
     ProfessorComponent,
     TituloComponent,
     NavComponent,
-    ProfessoresAlunosComponent
+    ProfessoresAlunosComponent,
+    ProfessorDetalheComponent,
+    AlunosProfessoresComponent,
+
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    PaginationModule,
     BsDropdownModule.forRoot(),
     BrowserAnimationsModule,
     FormsModule,

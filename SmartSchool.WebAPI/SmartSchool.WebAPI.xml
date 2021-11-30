@@ -6,24 +6,37 @@
     <members>
         <member name="T:SmartSchool.WebAPI.V1.Controllers.AlunoController">
             <summary>
-             Versão 1.0 controlador Alunos
+            Versão 1 do meu controlador de Alunos
             </summary>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.#ctor(SmartSchool.WebAPI.Data.IRepository,AutoMapper.IMapper)">
+            <summary>
+            
+            </summary>
+            <param name="repo"></param>
+            <param name="mapper"></param>
         </member>
         <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.Get(SmartSchool.WebAPI.Helpers.PageParams)">
             <summary>
-            Método responsavel para retornar todos meus alunoa
+            Método responsável para retornar todos os meus alunos
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.GetByDisciplinaId(System.Int32)">
+            <summary>
+            Método responsável por retonar apenas um único AlunoDTO.
             </summary>
             <returns></returns>
         </member>
         <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.GetRegister">
             <summary>
-            Método responsavel para retornar apenas um regristro do alunoDto
+            Método responsável por retonar apenas um único AlunoDTO.
             </summary>
             <returns></returns>
         </member>
         <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.GetById(System.Int32)">
             <summary>
-            Método responsavel para retornar apenas um Aluno por Id
+            Método responsável por retonar apenas um Aluno por meio do Código ID
             </summary>
             <param name="id"></param>
             <returns></returns>
@@ -31,6 +44,11 @@
         <member name="T:SmartSchool.WebAPI.V1.Controllers.ProfessorController">
             <summary>
             Versão 1 do meu controlador de Professores
+            </summary>
+        </member>
+        <member name="T:SmartSchool.WebAPI.V1.Dtos.AlunoPatchDto">
+            <summary>
+            Este � o DTO de Aluno para Registrar.
             </summary>
         </member>
         <member name="T:SmartSchool.WebAPI.V1.Dtos.AlunoRegistrarDto">
