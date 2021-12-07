@@ -1,6 +1,10 @@
 # Curso AspNetWebCoreAPI
 Curso oferecido pelo [Professor Vinícius de Andrade](https://github.com/vsandrade), na plataforma [Udemy](https://www.udemy.com/course/criando-web-api-com-aspnet-core-31-ef-core-31/)
 
+## 💻 Projeto
+
+Desenvolver uma plataforma web para listagem e visualização de alunos e professores, para a construção deste projeto foi usado o framework Angular.
+
 <p align="center">
 <img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge"/>
 </p>
@@ -27,7 +31,7 @@ O curso acaba com essas funções apenas, mas ainda deve ser implementadas as se
 - [ ] Processo de CRUD dos professores
 - [ ] DashBoard
 
-## Tecnologias usadas
+## 🚀 Tecnologias usadas
 
 - .Net Core 5.0 
 - Angular CLI 12.2 
