@@ -69,19 +69,12 @@ namespace SmartSchool.WebAPI
                         new Microsoft.OpenApi.Models.OpenApiInfo()
                         {
                             Title = "SmartSchool API",
-                            Version = description.ApiVersion.ToString(),
-                            TermsOfService = new Uri("http://SeusTermosDeUso.com"),
-                            Description = "A descrição da WebAPI do SmartSchool",
-                            License = new Microsoft.OpenApi.Models.OpenApiLicense
-                            {
-                                Name = "SmartSchool License",
-                                Url = new Uri("http://mit.com")
-                            },
+                        Version = description.ApiVersion.ToString(),
                             Contact = new Microsoft.OpenApi.Models.OpenApiContact
                             {
-                                Name = "Vinícius de Andrade",
+                                Name = "Frederico Rabelo",
                                 Email = "",
-                                Url = new Uri("http://programadamente.com")
+                                Url = new Uri("https://github.com/fredrbo/")
                             }
                         }
                     );

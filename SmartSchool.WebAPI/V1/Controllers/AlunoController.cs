@@ -34,7 +34,7 @@ namespace SmartSchool.WebAPI.V1.Controllers
         }
 
         /// <summary>
-        /// Método responsável para retornar todos os meus alunos
+        /// Retorna todos alunos
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -50,7 +50,7 @@ namespace SmartSchool.WebAPI.V1.Controllers
         }
 
         /// <summary>
-        /// Método responsável por retonar apenas um único AlunoDTO.
+        /// Retorna Alunos com base disciplina em comum
         /// </summary>
         /// <returns></returns>
         [HttpGet("ByDisciplina/{id}")]
@@ -61,7 +61,7 @@ namespace SmartSchool.WebAPI.V1.Controllers
         }
 
         /// <summary>
-        /// Método responsável por retonar apenas um único AlunoDTO.
+        /// Retorna apenas um único AlunoDTO.
         /// </summary>
         /// <returns></returns>
         [HttpGet("getRegister")]
@@ -71,11 +71,10 @@ namespace SmartSchool.WebAPI.V1.Controllers
         }
 
         /// <summary>
-        /// Método responsável por retonar apenas um Aluno por meio do Código ID
+        /// Retorna apenas um Aluno por meio do ID
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        // api/aluno
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -87,7 +86,9 @@ namespace SmartSchool.WebAPI.V1.Controllers
             return Ok(alunoDto);
         }
 
-        // api/aluno
+        /// <summary>
+        /// Adiciona um Aluno
+        /// </summary>
         [HttpPost]
         public IActionResult Post(AlunoRegistrarDto model)
         {
@@ -101,8 +102,9 @@ namespace SmartSchool.WebAPI.V1.Controllers
 
             return BadRequest("Aluno não cadastrado");
         }
-
-        // api/aluno
+         /// <summary>
+        /// Atualiza  Aluno por meio do ID, precisa passar JSON
+        /// </summary>
         [HttpPut("{id}")]
         public IActionResult Put(int id, AlunoRegistrarDto model)
         {
@@ -119,8 +121,9 @@ namespace SmartSchool.WebAPI.V1.Controllers
 
             return BadRequest("Aluno não Atualizado");
         }
-
-        // api/aluno
+        /// <summary>
+        /// Atualiza alguma informação do Aluno por meio do ID
+        /// </summary>
         [HttpPatch("{id}")]
         public IActionResult Patch(int id, AlunoPatchDto model)
         {
@@ -138,7 +141,9 @@ namespace SmartSchool.WebAPI.V1.Controllers
             return BadRequest("Aluno não Atualizado");
         }
 
-        // api/aluno/{id}/trocarEstado
+        /// <summary>
+        /// Alterna estado do Aluno entre ativado/desativadi por meio do ID
+        /// </summary>
         [HttpPatch("{id}/trocarEstado")]
         public IActionResult trocarEstado(int id, TrocaEstadoDto trocaEstado)
         {
@@ -156,7 +161,9 @@ namespace SmartSchool.WebAPI.V1.Controllers
 
             return BadRequest("Aluno não Atualizado");
         }
-
+        /// <summary>
+        /// Exclui  um Aluno por meio do ID
+        /// </summary>
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

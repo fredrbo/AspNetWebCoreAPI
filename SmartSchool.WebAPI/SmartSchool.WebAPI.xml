@@ -18,32 +18,97 @@
         </member>
         <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.Get(SmartSchool.WebAPI.Helpers.PageParams)">
             <summary>
-            Método responsável para retornar todos os meus alunos
+            Retorna todos alunos
             </summary>
             <returns></returns>
         </member>
         <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.GetByDisciplinaId(System.Int32)">
             <summary>
-            Método responsável por retonar apenas um único AlunoDTO.
+            Retorna Alunos com base disciplina em comum
             </summary>
             <returns></returns>
         </member>
         <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.GetRegister">
             <summary>
-            Método responsável por retonar apenas um único AlunoDTO.
+            Retorna apenas um único AlunoDTO.
             </summary>
             <returns></returns>
         </member>
         <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.GetById(System.Int32)">
             <summary>
-            Método responsável por retonar apenas um Aluno por meio do Código ID
+            Retorna apenas um Aluno por meio do ID
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.Post(SmartSchool.WebAPI.V1.Dtos.AlunoRegistrarDto)">
+            <summary>
+            Adiciona um Aluno
+            </summary>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.Put(System.Int32,SmartSchool.WebAPI.V1.Dtos.AlunoRegistrarDto)">
+            <summary>
+            Atualiza  Aluno por meio do ID, precisa passar JSON
+            </summary>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.Patch(System.Int32,SmartSchool.WebAPI.V1.Dtos.AlunoPatchDto)">
+            <summary>
+            Atualiza alguma informação do Aluno por meio do ID
+            </summary>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.trocarEstado(System.Int32,SmartSchool.WebAPI.V1.Dtos.TrocaEstadoDto)">
+            <summary>
+            Alterna estado do Aluno entre ativado/desativadi por meio do ID
+            </summary>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.Delete(System.Int32)">
+            <summary>
+            Exclui  um Aluno por meio do ID
+            </summary>
+        </member>
         <member name="T:SmartSchool.WebAPI.V1.Controllers.ProfessorController">
             <summary>
             Versão 1 do meu controlador de Professores
+            </summary>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.ProfessorController.Get">
+            <summary>
+            Retorna todos professores
+            </summary>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.ProfessorController.GetRegister">
+            <summary>
+            Retorna professorDTO
+            </summary>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.ProfessorController.GetById(System.Int32)">
+            <summary>
+            Retorna Professor pelo Id
+            </summary>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.ProfessorController.GetByAlunoId(System.Int32)">
+            <summary>
+            Retorna Professeores baseado no Id do Aluno 
+            </summary>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.ProfessorController.Post(SmartSchool.WebAPI.V1.Dtos.ProfessorRegistrarDto)">
+            <summary>
+            Cria Professor
+            </summary>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.ProfessorController.Put(System.Int32,SmartSchool.WebAPI.V1.Dtos.ProfessorRegistrarDto)">
+            <summary>
+            Atualiza  Professor por meio do ID, precisa passar JSON
+            </summary>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.ProfessorController.Patch(System.Int32,SmartSchool.WebAPI.V1.Dtos.ProfessorRegistrarDto)">
+            <summary>
+            Atualiza alguma informação do Aluno por meio do ID
+            </summary>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.ProfessorController.Delete(System.Int32)">
+            <summary>
+            Apaga Professor baseado no Id
             </summary>
         </member>
         <member name="T:SmartSchool.WebAPI.V1.Dtos.AlunoPatchDto">

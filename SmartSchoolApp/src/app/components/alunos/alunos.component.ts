@@ -35,7 +35,6 @@ export class AlunosComponent implements OnInit, OnDestroy {
   public msnDelteAluno: string;
   public modeSave = 'post';
   public pagination: Pagination;
-  // @Input() pagination: Pagination;
 
   constructor(
     private alunoService: AlunoService,

@@ -24,7 +24,9 @@ namespace SmartSchool.WebAPI.V1.Controllers
             _mapper = mapper;
             _repo = repo;
         }
-
+        /// <summary>
+        /// Retorna todos professores
+        /// </summary>
         [HttpGet]
         public IActionResult Get()
         {
@@ -32,13 +34,17 @@ namespace SmartSchool.WebAPI.V1.Controllers
             return Ok(_mapper.Map<IEnumerable<ProfessorDto>>(Professor));
         }
 
+         /// <summary>
+        /// Retorna professorDTO
+        /// </summary>
         [HttpGet("getRegister")]
         public IActionResult GetRegister()
         {
             return Ok(new ProfessorRegistrarDto());
         }
-
-        // api/Professor
+        /// <summary>
+        /// Retorna Professor pelo Id
+        /// </summary>
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -50,7 +56,9 @@ namespace SmartSchool.WebAPI.V1.Controllers
             return Ok(Professor);
         }
 
-        // api/Professor
+         /// <summary>
+        /// Retorna Professeores baseado no Id do Aluno 
+        /// </summary>
         [HttpGet("byaluno/{alunoId}")]
         public IActionResult GetByAlunoId(int alunoId)
         {
@@ -59,8 +67,10 @@ namespace SmartSchool.WebAPI.V1.Controllers
 
             return Ok(_mapper.Map<IEnumerable<ProfessorDto>>(Professores));
         }
-
-        // api/Professor
+        
+    /// <summary>
+        /// Cria Professor
+        /// </summary>
         [HttpPost]
         public IActionResult Post(ProfessorRegistrarDto model)
         {
@@ -74,8 +84,9 @@ namespace SmartSchool.WebAPI.V1.Controllers
 
             return BadRequest("Professor não cadastrado");
         }
-
-        // api/Professor
+         /// <summary>
+        /// Atualiza  Professor por meio do ID, precisa passar JSON
+        /// </summary>
         [HttpPut("{id}")]
         public IActionResult Put(int id, ProfessorRegistrarDto model)
         {
@@ -92,8 +103,9 @@ namespace SmartSchool.WebAPI.V1.Controllers
 
             return BadRequest("Professor não Atualizado");
         }
-
-        // api/Professor
+        /// <summary>
+        /// Atualiza alguma informação do Aluno por meio do ID
+        /// </summary>
         [HttpPatch("{id}")]
         public IActionResult Patch(int id, ProfessorRegistrarDto model)
         {
@@ -111,6 +123,9 @@ namespace SmartSchool.WebAPI.V1.Controllers
             return BadRequest("Professor não Atualizado");
         }
 
+         /// <summary>
+        /// Apaga Professor baseado no Id
+        /// </summary>
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
