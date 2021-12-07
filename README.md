@@ -8,16 +8,20 @@ Curso oferecido pelo [Professor Vinícius de Andrade](https://github.com/vsandra
 <p align="center">
     <img width="500" src="https://github.com/fredrbo/AspNetWebCoreAPI/blob/master/SmartSchoolApp/src/assets/readme/Alunos.gif">
 </p>
-- No menu de alunos é possivel já possivel realizar todo proceddo CRUD
-- Desativar e ativar matricula
-- Paginação já aplicada
-
+<ul>
+    <li> No menu de alunos é possivel já possivel realizar todo proceddo CRUD</li>
+    <li> Desativar e ativar matricula</li>
+    <li> Paginação já aplicada</li>
+</ul>
 <p align="center">
     <img width="500" src="https://github.com/fredrbo/AspNetWebCoreAPI/blob/master/SmartSchoolApp/src/assets/readme/Professores.gif">
 </p>
-- No menu de professores é possivel consultá-los
-- Verificar suas disciplibas e seus alunos cadastrados na mesma
 
+<ul>
+    <li>No menu de professores é possivel consultá-los</li>
+    <li>Verificar suas disciplibas e seus alunos cadastrados na mesma</li>
+</ul>
+    
 O curso acaba com essas funções apenas, mas ainda deve ser implementadas as seguintes funções
 - [ ] Login
 - [ ] Processo de CRUD dos professores
